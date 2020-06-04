@@ -28,20 +28,28 @@ public class BowlingScorer {
          return "/".equals(round.getSecondHit());
     }
 
+    private int getNextOneHitScoreAfterThisRound(int index) {
+        return isStrikeRound(index + 1) ? 10 : Integer.parseInt(rounds.get(index + 1).getFirstHit());
+    }
+
+    private int getNextTwoHitScoresAfterThisRound(int index) {
+        return isStrikeRound(index + 1) ? 10 + getNextOneHitScoreAfterThisRound(index + 1) : getBaseScoresOfRound(index + 1);
+    }
+
     private int calculateScoresForStrikeRound(int index) {
-        return 10 + calculateScoresForNoBonusRound(index + 1);
+        return getBaseScoresOfRound(index) + getNextTwoHitScoresAfterThisRound(index);
     }
 
     private int calculateScoresForSpareRound(int index) {
-        if (index + 1 == rounds.size())
-            return 10;
-
-        Round nexRound = rounds.get(index + 1);
-        return 10 + Integer.parseInt(nexRound.getFirstHit());
+        return getBaseScoresOfRound(index) + getNextOneHitScoreAfterThisRound(index);
     }
 
     private int calculateScoresForNoBonusRound(int index) {
+        return getBaseScoresOfRound(index);
+    }
+
+    private int getBaseScoresOfRound(int index) {
         Round round = rounds.get(index);
-        return Integer.parseInt(round.getFirstHit()) + Integer.parseInt(round.getSecondHit());
+        return isStrikeRound(index) || isSpareRound(index) ? 10 : Integer.parseInt(round.getFirstHit()) + Integer.parseInt(round.getSecondHit());
     }
 }

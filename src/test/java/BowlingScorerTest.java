@@ -77,11 +77,12 @@ public class BowlingScorerTest {
         Round round7 = new Round("1", "6");
         Round round8 = new Round("1", "7");
         Round round9 = new Round("1", "/");
-        BowlingScorer bowlingScorer = new BowlingScorer(Arrays.asList(round0, round1, round2, round3, round4, round5, round6, round7, round8, round9));
+        Round round10 = new Round("1");
+        BowlingScorer bowlingScorer = new BowlingScorer(Arrays.asList(round0, round1, round2, round3, round4, round5, round6, round7, round8, round9, round10));
         // When
         int totalScores = bowlingScorer.calculateTotalScores();
         // Then
-        Assertions.assertEquals(0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 10, totalScores);
+        Assertions.assertEquals(0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 10 + 1, totalScores);
     }
 
     @Test
