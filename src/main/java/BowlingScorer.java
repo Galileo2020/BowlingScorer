@@ -10,7 +10,7 @@ public class BowlingScorer {
     }
 
     public int calculateTotalScores() {
-        return IntStream.range(0, rounds.size()).map(this::calculateScoresForRound).sum();
+        return IntStream.range(0, 10).map(this::calculateScoresForRound).sum();
     }
 
     private int calculateScoresForRound(int index) {
