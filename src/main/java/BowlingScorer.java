@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class BowlingScorer {
 
@@ -9,11 +10,11 @@ public class BowlingScorer {
     }
 
     public int calculateTotalScores() {
-        int totalScores = 0;
-        for (int i = 0; i < rounds.size(); i++) {
-            Round round = rounds.get(i);
-            totalScores += "/".equals(round.getSecondHit()) ? 10 + Integer.parseInt(rounds.get(i + 1).getFirstHit()) : Integer.parseInt(round.getFirstHit()) + Integer.parseInt(round.getSecondHit());
-        }
-        return totalScores;
+        return IntStream.range(0, rounds.size()).map(this::calculateScoresForRound).sum();
+    }
+
+    private int calculateScoresForRound(int index) {
+        Round round = rounds.get(index);
+       return  "/".equals(round.getSecondHit()) ? 10 + Integer.parseInt(rounds.get(index + 1).getFirstHit()) : Integer.parseInt(round.getFirstHit()) + Integer.parseInt(round.getSecondHit());
     }
 }
