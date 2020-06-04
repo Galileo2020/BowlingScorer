@@ -9,9 +9,11 @@ public class BowlingScorer {
     }
 
     public int calculateTotalScores() {
-        return rounds.stream()
-                .map(round -> Integer.parseInt(round.getFirstHit()) + Integer.parseInt(round.getSecondHit()))
-                .reduce(Integer::sum)
-                .orElse(0);
+        int totalScores = 0;
+        for (int i = 0; i < rounds.size(); i++) {
+            Round round = rounds.get(i);
+            totalScores += "/".equals(round.getSecondHit()) ? 10 + Integer.parseInt(rounds.get(i + 1).getFirstHit()) : Integer.parseInt(round.getFirstHit()) + Integer.parseInt(round.getSecondHit());
+        }
+        return totalScores;
     }
 }
