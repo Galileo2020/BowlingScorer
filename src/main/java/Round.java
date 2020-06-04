@@ -8,6 +8,10 @@ public class Round {
         this.secondHit = secondHit;
     }
 
+    public Round(String firstHit) {
+        this.firstHit = firstHit;
+    }
+
     public String getFirstHit() {
         return firstHit;
     }

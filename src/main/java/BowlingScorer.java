@@ -14,12 +14,22 @@ public class BowlingScorer {
     }
 
     private int calculateScoresForRound(int index) {
-       return isSpareRound(index)  ? calculateScoresForSpareRound(index)  : calculateScoresForNoBonusRound(index);
+       return isStrikeRound(index) ? calculateScoresForStrikeRound(index) :
+               isSpareRound(index) ? calculateScoresForSpareRound(index) : calculateScoresForNoBonusRound(index);
+    }
+
+    private boolean isStrikeRound(int index) {
+        Round round = rounds.get(index);
+        return "X".equals(round.getFirstHit());
     }
 
     private boolean isSpareRound(int index) {
         Round round = rounds.get(index);
          return "/".equals(round.getSecondHit());
+    }
+
+    private int calculateScoresForStrikeRound(int index) {
+        return 10 + calculateScoresForNoBonusRound(index + 1);
     }
 
     private int calculateScoresForSpareRound(int index) {
